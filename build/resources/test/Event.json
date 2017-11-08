@@ -1,0 +1,14 @@
+{
+  "name": "dog walking",
+  "description": "This is a description of this event.",
+  "organizationId": 1,
+  "contactName": "yunie",
+  "email": "ym224@cornell.edu",
+  "applicationURL": "testurl",
+  "location": "fake location",
+  "zipCode": "10044",
+  "time": "2012-04-23T18:25:43.511Z",
+  "size": 40,
+  "length": 60
+}
+

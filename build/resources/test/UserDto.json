@@ -1,0 +1,18 @@
+{
+  "firstName": "yunie",
+  "lastName": "mao",
+  "gender": "f",
+  "age": 28,
+  "email": "ym224@cornell.edu",
+  "address": "10044",
+  "phone": "2017908072",
+  "maxDistance": 5,
+  "maxEventLength": 60,
+  "minHour": 9,
+  "maxHour": 15,
+  "volType": "direct",
+  "eventType": "handson",
+  "impactIdx": 8,
+  "eventSize": 50,
+  "interestIds": [1,2,3]
+}
