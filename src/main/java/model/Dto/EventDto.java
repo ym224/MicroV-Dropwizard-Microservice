@@ -1,8 +1,11 @@
 package model.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import model.Interest;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventDto  {
 
@@ -20,6 +23,8 @@ public class EventDto  {
     private Integer size; // max attendance size
     @JsonProperty("event_length")
     private Integer length; //length in minutes
+    private List<String> tags;
+    private String status; // status of the event: added, applied, registered...
 
     public EventDto(){}
 
@@ -29,7 +34,8 @@ public class EventDto  {
     }
 
     public EventDto(Long id, String name, String description, String organizationName, String contactName, String email,
-                 String applicationURL, String location, String zipCode, Integer attendance, Integer size, Integer length, Timestamp time) {
+                    String applicationURL, String location, String zipCode, Integer attendance,
+                    Integer size, Integer length, Timestamp time, String status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -43,6 +49,8 @@ public class EventDto  {
         this.size = size;
         this.time = time;
         this.length = length;
+        this.status = status;
+        this.tags = new ArrayList<>();
     }
 
     public String getOrganizationName() {
@@ -149,6 +157,21 @@ public class EventDto  {
         this.size = size;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -173,7 +196,9 @@ public class EventDto  {
         if (time != null ? !time.equals(eventDto.time) : eventDto.time != null) return false;
         if (attendance != null ? !attendance.equals(eventDto.attendance) : eventDto.attendance != null) return false;
         if (size != null ? !size.equals(eventDto.size) : eventDto.size != null) return false;
-        return length != null ? length.equals(eventDto.length) : eventDto.length == null;
+        if (length != null ? !length.equals(eventDto.length) : eventDto.length != null) return false;
+        if (tags != null ? !tags.equals(eventDto.tags) : eventDto.tags != null) return false;
+        return status != null ? status.equals(eventDto.status) : eventDto.status == null;
     }
 
     @Override
@@ -191,6 +216,8 @@ public class EventDto  {
         result = 31 * result + (attendance != null ? attendance.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (length != null ? length.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }

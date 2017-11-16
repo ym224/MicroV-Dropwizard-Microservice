@@ -18,6 +18,7 @@ public class UserWishList implements Serializable {
         EXPIRED,
         EMAIL_QUEUED,
         EMAILED,
+        APPLIED,
         REGISTERED
     }
 

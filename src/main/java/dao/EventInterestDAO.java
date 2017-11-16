@@ -32,7 +32,7 @@ public interface EventInterestDAO {
     // only for users with no wishlist (events ordered by total count of interests)
     @RegisterMapper(EventMapper.class)
     @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status " +
             "from user_interest ui " +
             "inner join event_interest ei on ui.interest_id = ei.interest_id " +
             "inner join event e on e.id = ei.event_id " +
@@ -42,6 +42,8 @@ public interface EventInterestDAO {
             "order by count(ei.interest_id) desc limit 50")
     List<EventDto> getRelevantEventsForUser(@Bind("userId") Long userId, @BindIn("eventIds") List<Long> eventIds);
 
+    @SqlQuery("select i.name from interest i inner join event_interest ei on i.id = ei.interest_id where ei.event_id = :eventId")
+    List<String> getInterestNamesForEvent(@Bind("eventId") Long eventId);
 
     @SqlQuery("select event_id, interest_id from event_interest where event_id in (<eventIds>)")
     List<EventInterest> getByEventIds(@BindIn("eventIds") List<Long> eventIds);
@@ -49,7 +51,7 @@ public interface EventInterestDAO {
     // for users with wishlist (events ordered by sum of interest weights)
     @RegisterMapper(EventMapper.class)
     @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status " +
             "from user_interest ui " +
             "inner join event_interest ei on ui.interest_id = ei.interest_id " +
             "inner join event e on e.id = ei.event_id " +

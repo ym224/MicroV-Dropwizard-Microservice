@@ -1,6 +1,7 @@
 package dao;
 
 import mapper.EventMapper;
+import model.Dto.EventDto;
 import model.Event;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -25,12 +26,12 @@ public interface UserWishListDAO {
     List<Long> getEventIdsByUserId(@Bind("userId") Long userId);
 
     @RegisterMapper(EventMapper.class)
-    @SqlQuery("select e.id, e.name, e.description, org.name, e.contact, e.mail, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time " +
+    @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, uwl.status " +
             "from user_wish_list uwl " +
             "inner join event e on uwl.event_id = e.id " +
             "inner join organization org on org.id = e.organization_id " +
             "where user_id = :userId")
-    List<Event> getEventsByUserId(@Bind("userId") Long userId);
+    List<EventDto> getEventsByUserId(@Bind("userId") Long userId);
 }
 

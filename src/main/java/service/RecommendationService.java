@@ -37,7 +37,12 @@ public class RecommendationService {
 
         // if no items in user wish list, return events based on his interests, filtered by location
         if (eventIds.isEmpty()) {
-            return eventInterestDAO.getRelevantEventsForUser(userId, filteredEventIds);
+            List<EventDto> events =  eventInterestDAO.getRelevantEventsForUser(userId, filteredEventIds);
+
+            // get interest names of events
+            events.forEach(event->event.setTags(eventInterestDAO.getInterestNamesForEvent(event.getId())));
+
+            return events;
         }
 
         List<EventInterest> eventInterests = eventInterestDAO.getByEventIds(eventIds);
@@ -60,8 +65,14 @@ public class RecommendationService {
 
         // remove events already in user wishlist
         filteredEventIds.removeAll(eventIds);
+        if (filteredEventIds.isEmpty()) return new ArrayList<>();
         // display events based on weighted user interests
-        return eventInterestDAO.getRelevantEventsForUserWeighted(userId, filteredEventIds);
+        List<EventDto> events = eventInterestDAO.getRelevantEventsForUserWeighted(userId, filteredEventIds);
+
+        // get interest names for each event
+        events.forEach(event->event.setTags(eventInterestDAO.getInterestNamesForEvent(event.getId())));
+
+        return events;
     }
 
 /*    private List<Event> displayWeightedInterests(Long userId){

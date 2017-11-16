@@ -3,6 +3,7 @@ package resource;
 import dao.EventInterestDAO;
 import dao.UserInterestDAO;
 import dao.UserWishListDAO;
+import model.Dto.EventDto;
 import model.Event;
 import model.UserWishList;
 
@@ -31,7 +32,6 @@ public class UserEventResource {
     @POST
     public Response addToWishList(@QueryParam("eventId") Long eventId, @QueryParam("userId") Long userId) {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        System.out.println(eventId + userId);
         userWishListDAO.addEventToWishList(userId, eventId, UserWishList.status.ADDED.toString(), currentTime, currentTime);
 
         // find all interests tagged to selected event but not to user interests
@@ -42,6 +42,17 @@ public class UserEventResource {
             userInterestDAO.addUserInterest(userId, interestId, BigDecimal.ZERO, currentTime);
         }
 
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/apply")
+    public Response applyForEvents(@QueryParam("userId") Long userId, List<Long> eventIds){
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        // update status of each event to applied
+        for (Long eventId: eventIds){
+            userWishListDAO.updateEventInWishList(userId, eventId, UserWishList.status.APPLIED.toString(), currentTime);
+        }
         return Response.ok().build();
     }
 
@@ -56,9 +67,10 @@ public class UserEventResource {
     }
 
     @GET
-    public List<Event> getUserWishList(@QueryParam("userId") Long userId) {
-        System.out.println(userId);
-        return userWishListDAO.getEventsByUserId(userId);
+    public List<EventDto> getUserWishList(@QueryParam("userId") Long userId) {
+        List<EventDto> events = userWishListDAO.getEventsByUserId(userId);
+        events.forEach(event->event.setTags(eventInterestDAO.getInterestNamesForEvent(event.getId())));
+        return events;
     }
 
     @POST
