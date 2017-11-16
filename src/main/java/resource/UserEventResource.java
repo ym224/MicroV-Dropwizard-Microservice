@@ -4,7 +4,7 @@ import dao.EventInterestDAO;
 import dao.UserInterestDAO;
 import dao.UserWishListDAO;
 import model.Dto.EventDto;
-import model.Event;
+import model.Dto.EventIdsDto;
 import model.UserWishList;
 
 import javax.ws.rs.*;
@@ -47,10 +47,10 @@ public class UserEventResource {
 
     @POST
     @Path("/apply")
-    public Response applyForEvents(@QueryParam("userId") Long userId, List<Long> eventIds){
+    public Response applyForEvents(@QueryParam("userId") Long userId, EventIdsDto eventIds){
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         // update status of each event to applied
-        for (Long eventId: eventIds){
+        for (Long eventId: eventIds.getEventIds()) {
             userWishListDAO.updateEventInWishList(userId, eventId, UserWishList.status.APPLIED.toString(), currentTime);
         }
         return Response.ok().build();
