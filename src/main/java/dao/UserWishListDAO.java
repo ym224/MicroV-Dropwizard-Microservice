@@ -27,7 +27,7 @@ public interface UserWishListDAO {
 
     @RegisterMapper(EventMapper.class)
     @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time, uwl.status " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, uwl.status, e.image_url " +
             "from user_wish_list uwl " +
             "inner join event e on uwl.event_id = e.id " +
             "inner join organization org on org.id = e.organization_id " +
