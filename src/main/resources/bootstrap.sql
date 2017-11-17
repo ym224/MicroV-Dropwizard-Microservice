@@ -45,17 +45,18 @@ create table IF NOT EXISTS organization(
 create table IF NOT EXISTS event (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  description VARCHAR(255) not null,
+  description VARCHAR(2000) not null,
   organization_id INTEGER REFERENCES organization(id),
   contact VARCHAR(255),
-  email VARCHAR(255) not null,
-  application_url VARCHAR(255) not null,
+  email VARCHAR(255),
+  application_url VARCHAR(255),
   location VARCHAR(255) not null,
   zip_code VARCHAR(255) not null,
   time TIMESTAMP not null,
   attendance INTEGER,
   size INTEGER,
-  length BIGINT not null
+  length BIGINT not null,
+  image_url VARCHAR(255)
 );
 
 create table IF NOT EXISTS event_interest (

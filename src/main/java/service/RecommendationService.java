@@ -108,6 +108,7 @@ public class RecommendationService {
             // remove events outside distance range
             Iterator<EventDto> it = events.iterator();
             while (it.hasNext()) {
+                System.out.println("computing zipcode based distance");
                 ZipCodeDistance distance = zipCodeDistanceService.callZipCodeAPI(zipCode, it.next().getZipCode());
                 double distanceNum = distance.getDistance();
                 if (distanceNum >= range) {

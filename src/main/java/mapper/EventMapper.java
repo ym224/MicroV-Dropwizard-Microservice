@@ -18,7 +18,7 @@ public class EventMapper implements ResultSetMapper<EventDto>{
                 rs.getString("organization_name"), rs.getString("contact"), rs.getString("email"),
                 rs.getString("application_url"), rs.getString("location"),
                 rs.getString("zip_code"), rs.getInt("attendance"), rs.getInt("size"),
-                rs.getInt("length"), rs.getTimestamp("time"), rs.getString("status"));
+                rs.getInt("length"), rs.getTimestamp("time"), rs.getString("status"), rs.getString("image_url"));
         return event;
     }
 }

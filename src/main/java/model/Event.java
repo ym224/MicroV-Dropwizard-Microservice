@@ -17,11 +17,12 @@ public class Event implements Serializable{
     private Timestamp time;
     private Integer size;
     private Integer length; //length in minutes
+    private String imageURL;
 
     public Event(){}
 
     public Event(Long id, String name, String description, Long organizationId, String contactName, String email,
-                 String applicationURL, String location, String zipCode, Integer size, Integer length, Timestamp time) {
+                 String applicationURL, String location, String zipCode, Integer size, Integer length, Timestamp time, String imageURL) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,6 +35,7 @@ public class Event implements Serializable{
         this.size = size;
         this.time = time;
         this.length = length;
+        this.imageURL = imageURL;
     }
 
     public Long getId() {
@@ -132,6 +134,13 @@ public class Event implements Serializable{
         this.size = size;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -143,7 +152,8 @@ public class Event implements Serializable{
         if (id != null ? !id.equals(event.id) : event.id != null) return false;
         if (name != null ? !name.equals(event.name) : event.name != null) return false;
         if (description != null ? !description.equals(event.description) : event.description != null) return false;
-        if (organizationId != null ? !organizationId.equals(event.organizationId) : event.organizationId != null) return false;
+        if (organizationId != null ? !organizationId.equals(event.organizationId) : event.organizationId != null)
+            return false;
         if (contactName != null ? !contactName.equals(event.contactName) : event.contactName != null) return false;
         if (email != null ? !email.equals(event.email) : event.email != null) return false;
         if (applicationURL != null ? !applicationURL.equals(event.applicationURL) : event.applicationURL != null)
@@ -152,7 +162,8 @@ public class Event implements Serializable{
         if (zipCode != null ? !zipCode.equals(event.zipCode) : event.zipCode != null) return false;
         if (time != null ? !time.equals(event.time) : event.time != null) return false;
         if (size != null ? !size.equals(event.size) : event.size != null) return false;
-        return length != null ? length.equals(event.length) : event.length == null;
+        if (length != null ? !length.equals(event.length) : event.length != null) return false;
+        return imageURL != null ? imageURL.equals(event.imageURL) : event.imageURL == null;
     }
 
     @Override
@@ -169,6 +180,7 @@ public class Event implements Serializable{
         result = 31 * result + (time != null ? time.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (length != null ? length.hashCode() : 0);
+        result = 31 * result + (imageURL != null ? imageURL.hashCode() : 0);
         return result;
     }
 }

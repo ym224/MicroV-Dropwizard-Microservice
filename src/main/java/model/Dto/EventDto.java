@@ -1,7 +1,6 @@
 package model.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.Interest;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ public class EventDto  {
     @JsonProperty("event_length")
     private Integer length; //length in minutes
     private List<String> tags;
+    private String imageURL;
     private String status; // status of the event: added, applied, registered...
 
     public EventDto(){}
@@ -35,7 +35,7 @@ public class EventDto  {
 
     public EventDto(Long id, String name, String description, String organizationName, String contactName, String email,
                     String applicationURL, String location, String zipCode, Integer attendance,
-                    Integer size, Integer length, Timestamp time, String status) {
+                    Integer size, Integer length, Timestamp time, String status, String imageURL) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -50,6 +50,7 @@ public class EventDto  {
         this.time = time;
         this.length = length;
         this.status = status;
+        this.imageURL = imageURL;
         this.tags = new ArrayList<>();
     }
 
@@ -173,6 +174,14 @@ public class EventDto  {
         this.status = status;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -198,6 +207,7 @@ public class EventDto  {
         if (size != null ? !size.equals(eventDto.size) : eventDto.size != null) return false;
         if (length != null ? !length.equals(eventDto.length) : eventDto.length != null) return false;
         if (tags != null ? !tags.equals(eventDto.tags) : eventDto.tags != null) return false;
+        if (imageURL != null ? !imageURL.equals(eventDto.imageURL) : eventDto.imageURL != null) return false;
         return status != null ? status.equals(eventDto.status) : eventDto.status == null;
     }
 
@@ -217,6 +227,7 @@ public class EventDto  {
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (imageURL != null ? imageURL.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }

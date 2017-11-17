@@ -32,7 +32,7 @@ public interface EventInterestDAO {
     // only for users with no wishlist (events ordered by total count of interests)
     @RegisterMapper(EventMapper.class)
     @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status, e.image_url " +
             "from user_interest ui " +
             "inner join event_interest ei on ui.interest_id = ei.interest_id " +
             "inner join event e on e.id = ei.event_id " +
@@ -51,7 +51,7 @@ public interface EventInterestDAO {
     // for users with wishlist (events ordered by sum of interest weights)
     @RegisterMapper(EventMapper.class)
     @SqlQuery("select e.id, e.name, e.description, org.name as organization_name, e.contact, e.email, e.application_url, e.location, " +
-            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status " +
+            "e.zip_code, e.attendance, e.size, e.length, e.time, 'NONE' as status, e.image_url " +
             "from user_interest ui " +
             "inner join event_interest ei on ui.interest_id = ei.interest_id " +
             "inner join event e on e.id = ei.event_id " +
